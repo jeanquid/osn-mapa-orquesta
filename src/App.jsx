@@ -195,10 +195,15 @@ export default function App() {
           {selectedCargo && (
             <div className="glass" style={{
               position:'absolute', top:20, left:'50%', transform:'translateX(-50%)',
-              zIndex:10, padding:'24px 32px', borderRadius:24, width:'min(480px, 95%)',
+              zIndex:10, padding:'28px 36px', borderRadius:28, width:'min(500px, 95%)',
+              background: 'rgba(10, 10, 10, 0.98)', // Mucho más opaco
+              backdropFilter: 'blur(20px)', // Más desenfoque
               borderTop:`6px solid ${selectedCargo.estado === "V" ? "#C62828" : ROL[selectedCargo.rol].c}`,
+              borderLeft: '1px solid rgba(255,255,255,0.1)',
+              borderRight: '1px solid rgba(255,255,255,0.1)',
+              borderBottom: '1px solid rgba(255,255,255,0.1)',
               animation: 'fadeIn 0.3s ease-out',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.8)' // Sombra más profunda
             }}>
               <button onClick={() => setSelectedId(null)} style={{ position:'absolute', top:12, right:12, background:'none', border:'none', color:'var(--text-dim)', cursor:'pointer', fontSize:22 }}>×</button>
               
