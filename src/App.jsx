@@ -103,7 +103,7 @@ const FAMILIAS = {
 };
 
 /* ═══════════════════════════════════════════════════
-   LAYOUT — posiciones en semicírculo
+   LAYOUT — posiciones en semicírculo (Versión Expandida)
    ═══════════════════════════════════════════════════ */
 function seatPositions() {
   const pos = {};
@@ -119,21 +119,22 @@ function seatPositions() {
       };
     });
   };
-  place("1ros. Violines", 185, 355, 5, 16, 16);
-  place("2dos. Violines", 495, 355, 5, 16, 16);
-  place("Violas", 270, 275, 4, 16, 16);
-  place("Violoncelos", 415, 275, 4, 16, 16);
-  place("Contrabajos", 530, 155, 5, 14, 14);
-  place("Flautas", 270, 140, 2, 16, 16);
-  place("Oboes", 315, 140, 2, 16, 16);
-  place("Clarinetes", 360, 140, 2, 16, 16);
-  place("Fagotes", 405, 140, 2, 16, 16);
-  place("Cornos", 200, 90, 3, 16, 16);
-  place("Trompetas", 315, 72, 2, 16, 16);
-  place("Trombones", 400, 72, 3, 16, 16);
-  place("Timbales", 490, 62, 3, 14, 14);
-  place("Teclas", 145, 120, 1, 14, 14);
-  place("Arpas", 145, 85, 2, 16, 14);
+  // Coordenadas expandidas para un viewBox de 900x600
+  place("1ros. Violines", 240, 520, 6, 28, 28);
+  place("2dos. Violines", 660, 520, 6, 28, 28);
+  place("Violas", 360, 420, 5, 26, 26);
+  place("Violoncelos", 540, 420, 5, 26, 26);
+  place("Contrabajos", 720, 240, 5, 24, 24);
+  place("Flautas", 360, 240, 2, 26, 26);
+  place("Oboes", 420, 240, 2, 26, 26);
+  place("Clarinetes", 480, 240, 2, 26, 26);
+  place("Fagotes", 540, 240, 2, 26, 26);
+  place("Cornos", 260, 160, 4, 26, 26);
+  place("Trompetas", 420, 140, 2, 26, 26);
+  place("Trombones", 540, 140, 3, 26, 26);
+  place("Timbales", 680, 130, 3, 24, 24);
+  place("Teclas", 180, 200, 1, 24, 24);
+  place("Arpas", 180, 140, 2, 28, 26);
   return pos;
 }
 
@@ -248,32 +249,33 @@ export default function App() {
       </section>
 
       <div style={{ display:'grid', gridTemplateColumns: showList ? '1fr 350px' : '1fr', gap:30, alignItems:'start', transition:'all 0.5s ease' }}>
-        <main className="map-container">
+        <main className="map-container" style={{ maxWidth: '1000px' }}>
           {/* Selected Cargo Overlay */}
           {selectedCargo && (
             <div className="glass" style={{
               position:'absolute', top:20, left:'50%', transform:'translateX(-50%)',
-              zIndex:10, padding:'16px 24px', borderRadius:20, width:'min(400px, 90%)',
-              borderTop:`4px solid ${ROL[selectedCargo.rol].c}`,
-              animation: 'fadeIn 0.3s ease-out'
+              zIndex:10, padding:'20px 30px', borderRadius:24, width:'min(450px, 90%)',
+              borderTop:`6px solid ${ROL[selectedCargo.rol].c}`,
+              animation: 'fadeIn 0.3s ease-out',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
             }}>
-              <button onClick={() => setSelectedId(null)} style={{ position:'absolute', top:12, right:12, background:'none', border:'none', color:'var(--text-dim)', cursor:'pointer', fontSize:18 }}>×</button>
-              <div style={{ fontSize:11, textTransform:'uppercase', letterSpacing:2, color:ROL[selectedCargo.rol].c, fontWeight:700, marginBottom:4 }}>{ROL[selectedCargo.rol].full}</div>
-              <div style={{ fontSize:18, fontWeight:600, lineHeight:1.3 }}>{selectedCargo.cargo}</div>
-              <div style={{ fontSize:12, color:'var(--text-dim)', marginTop:6 }}>{FAMILIAS[selectedCargo.familia].icon} {selectedCargo.familia} • {selectedCargo.grupo}</div>
+              <button onClick={() => setSelectedId(null)} style={{ position:'absolute', top:12, right:12, background:'none', border:'none', color:'var(--text-dim)', cursor:'pointer', fontSize:20 }}>×</button>
+              <div style={{ fontSize:12, textTransform:'uppercase', letterSpacing:2, color:ROL[selectedCargo.rol].c, fontWeight:700, marginBottom:4 }}>{ROL[selectedCargo.rol].full}</div>
+              <div style={{ fontSize:20, fontWeight:600, lineHeight:1.3 }}>{selectedCargo.cargo}</div>
+              <div style={{ fontSize:13, color:'var(--text-dim)', marginTop:8 }}>{FAMILIAS[selectedCargo.familia].icon} {selectedCargo.familia} • {selectedCargo.grupo}</div>
             </div>
           )}
 
-          <svg className="map-svg" viewBox="0 0 680 420">
+          <svg className="map-svg" viewBox="0 0 900 600">
             <defs>
               <radialGradient id="stageGrad" cx="50%" cy="100%" r="100%" fx="50%" fy="100%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
+                <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
                 <stop offset="100%" stopColor="rgba(255,255,255,0)" />
               </radialGradient>
             </defs>
             
             {/* Stage Floor */}
-            <path d="M55 400 Q55 15 340 10 Q625 15 625 400" fill="url(#stageGrad)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="5 5"/>
+            <path d="M50 580 Q50 20 450 15 Q850 20 850 580" fill="url(#stageGrad)" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeDasharray="8 6"/>
             
             {/* Dots */}
             {CARGOS.map(c => {
@@ -282,43 +284,44 @@ export default function App() {
               const isSelected = selectedId === c.id;
               const inFilter = filteredIds.has(c.id);
               const r = ROL[c.rol];
-              const baseR = c.rol === 1 ? 8 : c.rol === 2 ? 6 : c.rol === 3 ? 5 : 4.5;
+              // Tamaños aumentados significativamente
+              const baseR = c.rol === 1 ? 12 : c.rol === 2 ? 10 : c.rol === 3 ? 8 : 7.5;
               
               return (
                 <g key={c.id} className="seat-node" onClick={() => handleSelect(c.id)}>
                   {isSelected && (
-                    <circle cx={p.x} cy={p.y} r={baseR + 8} fill="none" stroke={r.c} strokeWidth="1.5" opacity="0.5">
-                      <animate attributeName="r" from={baseR} to={baseR+12} dur="1.5s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" from="0.8" to="0" dur="1.5s" repeatCount="indefinite" />
+                    <circle cx={p.x} cy={p.y} r={baseR + 12} fill="none" stroke={r.c} strokeWidth="2" opacity="0.6">
+                      <animate attributeName="r" from={baseR} to={baseR+18} dur="1.2s" repeatCount="indefinite" />
+                      <animate attributeName="opacity" from="0.8" to="0" dur="1.2s" repeatCount="indefinite" />
                     </circle>
                   )}
                   <circle
                     cx={p.x} cy={p.y}
-                    r={isSelected ? baseR + 2 : baseR}
-                    fill={inFilter ? r.c : "rgba(255,255,255,0.1)"}
-                    filter={isSelected ? `drop-shadow(0 0 8px ${r.c})` : 'none'}
-                    opacity={inFilter ? 1 : 0.2}
-                    style={{ transition:'all 0.3s ease' }}
+                    r={isSelected ? baseR + 4 : baseR}
+                    fill={inFilter ? r.c : "rgba(255,255,255,0.12)"}
+                    filter={isSelected ? `drop-shadow(0 0 12px ${r.c})` : 'none'}
+                    opacity={inFilter ? 1 : 0.25}
+                    style={{ transition:'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
                   />
                 </g>
               );
             })}
 
-            {/* Labels */}
-            <g fontSize="9" fontWeight="600" fill="var(--text-dim)" opacity="0.6" style={{ pointerEvents:'none' }}>
-              <text x="175" y="410" textAnchor="middle">1ros Violines</text>
-              <text x="505" y="410" textAnchor="middle">2dos Violines</text>
-              <text x="262" y="325" textAnchor="middle">Violas</text>
-              <text x="425" y="325" textAnchor="middle">Cellos</text>
-              <text x="555" y="160" textAnchor="middle">Contrabajos</text>
-              <text x="340" y="155" textAnchor="middle" fill="var(--color-maderas)">Maderas</text>
-              <text x="340" y="60" textAnchor="middle" fill="var(--color-metales)">Metales</text>
-              <text x="145" y="145" textAnchor="middle">Teclas/Arpas</text>
+            {/* Labels Expandidas */}
+            <g fontSize="11" fontWeight="600" fill="var(--text-dim)" opacity="0.7" style={{ pointerEvents:'none' }}>
+              <text x="240" y="580" textAnchor="middle">1ros Violines</text>
+              <text x="660" y="580" textAnchor="middle">2dos Violines</text>
+              <text x="360" y="470" textAnchor="middle">Violas</text>
+              <text x="540" y="470" textAnchor="middle">Cellos</text>
+              <text x="740" y="270" textAnchor="middle">Contrabajos</text>
+              <text x="450" y="285" textAnchor="middle" fill="var(--color-maderas)" fontSize="12">MADERAS</text>
+              <text x="450" y="100" textAnchor="middle" fill="var(--color-metales)" fontSize="12">METALES</text>
+              <text x="180" y="240" textAnchor="middle">Piano / Arpas</text>
             </g>
 
-            {/* Director Podium */}
-            <rect x="315" y="385" width="50" height="25" rx="4" fill="#fff" opacity="0.1" />
-            <text x="340" y="402" textAnchor="middle" fontSize="10" fill="#fff" fontWeight="600">Director</text>
+            {/* Director Podium Expandido */}
+            <rect x="420" y="560" width="60" height="30" rx="6" fill="#fff" opacity="0.15" />
+            <text x="450" y="580" textAnchor="middle" fontSize="11" fill="#fff" fontWeight="700">DIRECTOR</text>
           </svg>
 
           <div style={{ textAlign:'center', marginTop:20 }}>
